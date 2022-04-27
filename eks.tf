@@ -5,7 +5,7 @@ resource "aws_iam_role" "eks_cluster" {
   assume_role_policy = <<POLICY
     {
 
-        "Version" : "2012-10-17"
+        "Version" : "2012-10-17",
         "Statement" : [
             {
                 "Effect" : "Allow",
@@ -26,7 +26,7 @@ resource "aws_iam_role_policy_attachment" "aws_eksc_policy" {
 
 #make clust
 resource "aws_eks_cluster" "EKS" {
-  Name = "EKS"
+  name = "EKS"
   role_arn = aws_iam_role.eks_cluster.arn
   version = "1.18"
   
@@ -43,5 +43,5 @@ resource "aws_eks_cluster" "EKS" {
         aws_subnet.pv3.id
      ]
   }
-  depends_on = [aws_iam_role_policy_attachment.AmazonEKSClusterPolicy]
+  depends_on = [aws_iam_role_policy_attachment.aws_eksc_policy]
 }
